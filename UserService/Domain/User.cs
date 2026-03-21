@@ -8,16 +8,16 @@
         /// <summary>
         /// 
         /// </summary>
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string PasswordHash { get; private set; }
+        public string PasswordHash { get; set; }
     }
 }

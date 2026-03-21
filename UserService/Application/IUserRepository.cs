@@ -12,13 +12,13 @@ namespace UserService.Application
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task AddAsync(User user);
+        Task AddAsync(Domain.User user);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        Task<User?> GetByNameAsync(string name);
+        Task<Domain.User?> GetByNameAsync(string name);
     }
 }
