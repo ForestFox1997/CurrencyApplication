@@ -4,3 +4,21 @@ GET {{UserService_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{UserService_HostAddress}}/register
+Content-Type: application/json
+{
+    "name": "vasya",
+    "password": "1488"
+}
+
+###
+
+POST {{UserService_HostAddress}}/login
+Content-Type: application/json
+{
+    "name": "vasya",
+    "password": "1488"
+}
+
+###
