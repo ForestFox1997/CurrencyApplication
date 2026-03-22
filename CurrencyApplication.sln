@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationService", "Migrati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyWorker", "CurrencyWorker\CurrencyWorker.csproj", "{E5F1B243-37C1-49B4-BF23-397A802423E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,8 +85,23 @@ Global
 		{E5F1B243-37C1-49B4-BF23-397A802423E4}.Release|x64.Build.0 = Release|Any CPU
 		{E5F1B243-37C1-49B4-BF23-397A802423E4}.Release|x86.ActiveCfg = Release|Any CPU
 		{E5F1B243-37C1-49B4-BF23-397A802423E4}.Release|x86.Build.0 = Release|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Debug|x64.Build.0 = Debug|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Release|x64.ActiveCfg = Release|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Release|x64.Build.0 = Release|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3864C948-8989-4927-89C0-6E755DB2E15D}
 	EndGlobalSection
 EndGlobal
