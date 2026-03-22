@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using UserService.Application.User.Commands;
-using MediatR;
 
 namespace UserService.API
 {
+    [ApiController]
     public class UserController : Controller
     {
         private readonly IMediator _mediator;
@@ -40,21 +43,29 @@ namespace UserService.API
         }
 
         [HttpPost]
-        [EndpointName("RegisterUser")]
         [Route("/register")]
         public async Task<ActionResult> Register(RegisterUserCommand command)
+        {
+            await _mediator.Send(command);
+            await Task.Delay(TimeSpan.FromMinutes(2));
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("/login")]
+        public async Task<ActionResult> Login(RegisterUserCommand command)
         {
             await _mediator.Send(command);
             return Ok();
         }
 
-        [HttpPost]
-        [EndpointName("")]
-        [Route("/")]
-        public async Task<ActionResult> Register(RegisterUserCommand command)
+        [HttpGet]
+        [Route("/test")]
+        [Authorize]
+        public async Task<IActionResult> TestAuthorize()
         {
-            await _mediator.Send(command);
-            return Ok();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return Ok("Authorization test passed.");
         }
     }
 }

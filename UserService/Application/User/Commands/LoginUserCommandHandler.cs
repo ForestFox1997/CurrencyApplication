@@ -20,7 +20,18 @@ namespace UserService.Application.User.Commands
 
         public async Task<Result> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = await _repository.GetByNameAsync(request.Name);
+
+            if (user == null)
+                return new Result { Success = false, Error = "Неверные данные для авторизации" };
+
+            var isValid = _passwordHasher.Verify(request.Password, user.PasswordHash);
+            if (!isValid)
+                return new Result { Success = false, Error = "Неверные данные для авторизации" };
+
+            var token = _jwtProvider.GenerateToken(user);
+
+            return new Result { Success = true, Message = token };
         }
     }
 }

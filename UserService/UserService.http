@@ -13,3 +13,12 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{UserService_HostAddress}}/login
+Content-Type: application/json
+{
+    "name": "vasya",
+    "password": "1488"
+}
+
+###

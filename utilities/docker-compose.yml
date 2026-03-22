@@ -1,5 +1,4 @@
-# docker-compose.yml для CurrencyApplication;
-# Поднимает экземпляр PostgreSql 16, а затем выполняет скрипт создания баз данных init.sql;
+
 services:
   postgres:
     image: postgres:16
