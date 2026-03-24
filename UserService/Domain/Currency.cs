@@ -1,27 +1,27 @@
 ﻿namespace UserService.Domain
 {
     /// <summary>
-    /// Пользователь
+    /// Курс валюты
     /// </summary>
-    public class User
+    public class Currency
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
-        /// Имя / ник / логин
+        /// Название
         /// </summary>
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
-        /// Хэш пароля
+        /// Курс
         /// </summary>
-        public string? PasswordHash { get; set; }
+        public decimal Rate { get; set; }
 
         /// <summary>
-        /// Коллекция любимых валют пользователя
+        /// Избранные валюты
         /// </summary>
         public ICollection<FavoriteCurrency> Favorites { get; set; } = [];
     }

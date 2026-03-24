@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+  <Content Remove="..\**\appsettings*.json" />
+  </ItemGroup>
+
 </Project>

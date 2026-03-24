@@ -10,7 +10,7 @@ namespace UserService.Infrastructure
     public class JwtProvider : IJwtProvider
     {
         // TODO !! Вынести в конифг
-        private readonly string _secret = "abcdefg";
+        private readonly string _secret = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
 
         public string GenerateToken(User user)
         {

@@ -47,16 +47,21 @@ namespace UserService.API
         public async Task<ActionResult> Register(RegisterUserCommand command)
         {
             await _mediator.Send(command);
-            await Task.Delay(TimeSpan.FromMinutes(2));
+            //await Task.Delay(TimeSpan.FromMinutes(2));
             return Ok();
         }
 
         [HttpPost]
         [Route("/login")]
-        public async Task<ActionResult> Login(RegisterUserCommand command)
+        public async Task<ActionResult> Login(LoginUserCommand command)
         {
-            await _mediator.Send(command);
-            return Ok();
+            var result = await _mediator.Send(command);
+            if (!result.Success)
+            {
+                return Unauthorized(new { result.Error });
+            }
+
+            return Ok(new { Result = result.Message });
         }
 
         [HttpGet]

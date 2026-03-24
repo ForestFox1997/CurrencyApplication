@@ -8,28 +8,27 @@ var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
         var connectionString = context.Configuration.GetConnectionString("Default");
-
         services.AddDbContext<UserDbContext>(options =>
             options.UseNpgsql(connectionString));
     })
+    .UseConsoleLifetime()
     .Build();
 
 using var scope = host.Services.CreateScope();
-
 var services = scope.ServiceProvider;
 
 try
 {
     Console.WriteLine("Применяются миграции...");
 
-    var userDb = services.GetRequiredService<UserDbContext>();
+    var db = services.GetRequiredService<UserDbContext>();
+    await db.Database.MigrateAsync();
 
-    await userDb.Database.MigrateAsync();
-
-    Console.WriteLine("Миграции успешно применены...");
+    Console.WriteLine("Миграции успешно применены.");
+    Environment.Exit(0);
 }
 catch (Exception ex)
 {
     Console.WriteLine("Ошибка при применении миграции: {0}", ex);
-    throw;
+    Environment.Exit(1);
 }

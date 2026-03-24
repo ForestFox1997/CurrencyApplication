@@ -1,2 +1,2 @@
-CREATE DATABASE users_db;
-CREATE DATABASE finance_db;
+--CREATE DATABASE users_db;
+--CREATE DATABASE finance_db;

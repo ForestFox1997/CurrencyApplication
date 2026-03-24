@@ -15,7 +15,8 @@ namespace UserService.Infrastructure
 
         public async Task AddAsync(User user)
         {
-            _context.Users.Add(user);
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<User?> GetByNameAsync(string name)

@@ -1,15 +1,39 @@
+using NSwag;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+//builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddOpenApiDocument(config =>
+{
+    config.DocumentName = "v1";
+    config.PostProcess = doc =>
+    {
+        doc.Info = new OpenApiInfo
+        {
+            Title = "My API",
+            Version = "v1",
+            Description = "Minimal NSwag-generated OpenAPI"
+        };
+    };
+    // config.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+    // {
+    //     Type = OpenApiSecuritySchemeType.ApiKey,
+    //     Name = "Authorization",
+    //     In = OpenApiSecurityApiKeyLocation.Header,
+    //     Description = "Type: Bearer {token}"
+    // });
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseOpenApi();
 }
 
 app.UseHttpsRedirection();

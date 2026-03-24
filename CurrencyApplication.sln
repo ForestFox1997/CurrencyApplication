@@ -12,11 +12,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationService", "MigrationService\MigrationService.csproj", "{D925BA9E-A746-4628-BABF-43BF8C4F674F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D1E208A2-4CD3-40FC-B61D-FB335BC14E75} = {D1E208A2-4CD3-40FC-B61D-FB335BC14E75}
+		{EC526635-3A12-40D5-8345-6B043F4F9F06} = {EC526635-3A12-40D5-8345-6B043F4F9F06}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyWorker", "CurrencyWorker\CurrencyWorker.csproj", "{E5F1B243-37C1-49B4-BF23-397A802423E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{7D4BC4B7-228C-426F-B9E5-43CE2E08DCB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{754FC069-D67B-A9D7-50A1-8D1CA196D8F1}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		init.sql = init.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

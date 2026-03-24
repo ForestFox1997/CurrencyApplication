@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NSwag;
 using Scalar.AspNetCore;
 using System.Text;
 using UserService.Application;
@@ -12,7 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApiDocument(config =>
+{
+    // config.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+    // {
+    //     Type = OpenApiSecuritySchemeType.ApiKey,
+    //     Name = "Authorization",
+    //     In = OpenApiSecurityApiKeyLocation.Header,
+    //     Description = "Type: Bearer {token}"
+    // });
+});
 
 builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
@@ -33,7 +43,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("abcdefg"))
+                Encoding.UTF8.GetBytes("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"))
         };
     });
 builder.Services.AddAuthorization();
@@ -47,8 +57,9 @@ app.MapControllers();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options => options.OpenApiRoutePattern = "openapi");
+    app.MapControllers();
+    app.UseOpenApi(options => options.Path = "openapi");
 }
 
 app.UseAuthentication();
