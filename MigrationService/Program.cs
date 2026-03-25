@@ -3,13 +3,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using UserService.Infrastructure;
+using FinanceService.Infrastructure;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
         var connectionString = context.Configuration.GetConnectionString("Default");
-        services.AddDbContext<UserDbContext>(options =>
-            options.UseNpgsql(connectionString));
+        services.AddDbContext<UserDbContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<FinanceDbContext>(options => options.UseNpgsql(connectionString));
     })
     .UseConsoleLifetime()
     .Build();
@@ -21,8 +22,11 @@ try
 {
     Console.WriteLine("Применяются миграции...");
 
-    var db = services.GetRequiredService<UserDbContext>();
-    await db.Database.MigrateAsync();
+    var userDb = services.GetRequiredService<UserDbContext>();
+    await userDb.Database.MigrateAsync();
+
+    var financeDb = services.GetRequiredService<FinanceDbContext>();
+    await financeDb.Database.MigrateAsync();
 
     Console.WriteLine("Миграции успешно применены.");
     Environment.Exit(0);
