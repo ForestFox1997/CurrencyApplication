@@ -9,12 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.25" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.6.3" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.13.14" />
+    <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
   <Content Remove="..\**\appsettings*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json" />
+    <Content Include="appsettings.json" />
   </ItemGroup>
 
 </Project>

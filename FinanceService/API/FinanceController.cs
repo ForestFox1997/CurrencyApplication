@@ -8,6 +8,7 @@ using System.Security.Claims;
 namespace FinanceService.API
 {
     [ApiController]
+    [Route("api/currencies")]
     public class FinanceController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,7 +19,7 @@ namespace FinanceService.API
         }
 
         [Authorize]
-        [HttpGet("/currencies")]
+        [HttpGet]
         public async Task<ActionResult> GetCurrencies()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
@@ -29,7 +30,7 @@ namespace FinanceService.API
         }
 
         [Authorize]
-        [HttpPost("/favorites")]
+        [HttpPost("favorites")]
         public async Task<ActionResult> AddFavorites(Guid currencyId)
         {
             var userId = GetUserId();
@@ -42,7 +43,7 @@ namespace FinanceService.API
         }
 
         [Authorize]
-        [HttpDelete("/favorites/{currencyId}")]
+        [HttpDelete("favorites/{currencyId}")]
         public async Task<ActionResult> RemoveFavorites(Guid currencyId)
         {
             var userId = GetUserId();

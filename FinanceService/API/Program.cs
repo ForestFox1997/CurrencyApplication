@@ -10,23 +10,15 @@ using FinanceService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-//builder.Services.AddOpenApi();
-builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddControllers();
 builder.Services.AddDbContext<FinanceDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddScoped<IUserFavoriteRepository, UserFavoriteRepository>();
-//builder.Services.AddDbContext<CurrencyDbContext>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssembly(typeof(AddFavoriteCurrencyCommand).Assembly));
 builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssembly(typeof(RemoveFavoriteCurrencyCommand).Assembly));
-
-builder.Services.AddControllers();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -55,52 +47,27 @@ builder.Services.AddOpenApiDocument(config =>
             Description = "Minimal NSwag-generated OpenAPI"
         };
     };
-    // config.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-    // {
-    //     Type = OpenApiSecuritySchemeType.ApiKey,
-    //     Name = "Authorization",
-    //     In = OpenApiSecurityApiKeyLocation.Header,
-    //     Description = "Type: Bearer {token}"
-    // });
 });
+
+builder.WebHost.UseUrls("http://0.0.0.0:8080");
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapScalarApiReference(options => options.OpenApiRoutePattern = "openapi");
-    app.MapControllers();
-    app.UseOpenApi(options => options.Path = "openapi");
-}
-
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapControllers();
 
-app.MapGet("/weatherforecast", () =>
+app.MapScalarApiReference(options =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    options.OpenApiRoutePattern = "openapi";
+    options.Title = "FinanceService API";
+});
+
+app.UseOpenApi(options => options.Path = "openapi");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

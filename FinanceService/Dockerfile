@@ -1,13 +1,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /build
 
-COPY Gateway/Gateway.csproj Gateway/
+COPY FinanceService/FinanceService.csproj FinanceService/
 
-RUN dotnet restore Gateway/Gateway.csproj
+RUN dotnet restore FinanceService/FinanceService.csproj
 
 COPY . .
 
-RUN dotnet publish Gateway/Gateway.csproj \
+RUN dotnet publish FinanceService/FinanceService.csproj \
     -c Release \
     -o /publish \
     /p:UseAppHost=false \
@@ -16,4 +16,4 @@ RUN dotnet publish Gateway/Gateway.csproj \
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /publish .
-ENTRYPOINT ["dotnet", "Gateway.dll"]
+ENTRYPOINT ["dotnet", "FinanceService.dll"]
