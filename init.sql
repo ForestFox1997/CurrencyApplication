@@ -1,0 +1,3 @@
+--CREATE DATABASE currency_db;
+--CREATE DATABASE user_db;
+--CREATE DATABASE finance_db;
