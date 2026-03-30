@@ -38,15 +38,9 @@ builder.Services.AddAuthorization();
 builder.Services.AddOpenApiDocument(config =>
 {
     config.DocumentName = "v1";
-    config.PostProcess = doc =>
-    {
-        doc.Info = new OpenApiInfo
-        {
-            Title = "My API",
-            Version = "v1",
-            Description = "Minimal NSwag-generated OpenAPI"
-        };
-    };
+    config.Title = "Finance API";
+    config.Version = "v1";
+    config.Description = "API для работы с валютами";
 });
 
 builder.WebHost.UseUrls("http://0.0.0.0:8080");

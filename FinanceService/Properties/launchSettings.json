@@ -18,7 +18,7 @@
     },
     "WSL": {
       "commandName": "WSL2",
-      "launchUrl": "https://localhost:7065",
+      "launchUrl": "https://localhost:8080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "https://localhost:7065;http://localhost:5198"
