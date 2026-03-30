@@ -3,6 +3,7 @@ using FinanceService.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace FinanceService.API
@@ -18,6 +19,20 @@ namespace FinanceService.API
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Получить список валют и их идентификаторы
+        /// </summary>
+        [HttpGet("currencynames")]
+        public async Task<ActionResult> GetCurrencyIds()
+        {
+            var currencyNames = await _mediator.Send(new GetCurrencyIdsCommand());
+
+            return Ok(currencyNames);
+        }
+
+        /// <summary>
+        /// Предоставить курсы валют юзера
+        /// </summary>
         [Authorize]
         [HttpGet]
         public async Task<ActionResult> GetCurrencies()
@@ -29,9 +44,12 @@ namespace FinanceService.API
             return Ok(result);
         }
 
+        /// <summary>
+        /// Сделать валюту избранной для пользователя
+        /// </summary>
         [Authorize]
         [HttpPost("favorites")]
-        public async Task<ActionResult> AddFavorites(Guid currencyId)
+        public async Task<ActionResult> AddFavorites([Required] Guid currencyId)
         {
             var userId = GetUserId();
 
@@ -42,6 +60,9 @@ namespace FinanceService.API
             return result.Success ? Ok() : BadRequest(result.Error);
         }
 
+        /// <summary>
+        /// Убрать валюту из избранного пользователя
+        /// </summary>
         [Authorize]
         [HttpDelete("favorites/{currencyId}")]
         public async Task<ActionResult> RemoveFavorites(Guid currencyId)

@@ -26,11 +26,11 @@ namespace UserService.Tests
         {
             var command = new RegisterUserCommand("user", "password");
 
-            mediatorMock.Setup(x => x.Send(command, default)).Returns(Task.CompletedTask);
+            mediatorMock.Setup(x => x.Send(command, default)).Returns(Task.FromResult(new Result { Success = true }));
 
             var result = await controller.Register(command);
 
-            result.Should().BeOfType<OkResult>();
+            result.Should().BeOfType<OkObjectResult>();
 
             mediatorMock.Verify(x => x.Send(command, default),Times.Once);
         }
@@ -74,7 +74,7 @@ namespace UserService.Tests
 
             controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { User = user } };
 
-            var result = await controller.TestAuthorize();
+            var result = await controller.GetUserLogin();
 
             result.Should().BeOfType<OkObjectResult>();
         }
